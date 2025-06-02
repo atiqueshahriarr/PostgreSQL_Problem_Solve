@@ -85,14 +85,13 @@ ORDER BY sighting_time DESC
 LIMIT 2
 
 
-
-
-
 --7
+-- INSERT INTO species (common_name, scientific_name, discovery_date, conservation_status)
 
+SELECT * FROM species
+WHERE 
 
-
-
+UPDATE species SET conservation_status = 'Historic' WHERE (SELECT *, EXTRACT(YEAR FROM discovery_date) AS discovery_year FROM species WHERE EXTRACT(YEAR FROM discovery_date) < 1800;)
 
 
 --8
