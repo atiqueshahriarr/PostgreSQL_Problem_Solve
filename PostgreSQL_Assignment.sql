@@ -54,6 +54,7 @@ SELECT * FROM sightings;
 --1
 INSERT INTO rangers (name, region)
   VALUES ('Derek Fox', 'Coastal Plains');
+  
 SELECT * FROM rangers;
 
 
@@ -74,7 +75,7 @@ GROUP BY rangers.name;
 
 --5
 SELECT common_name FROM species
-WHERE species_id NOT IN (SELECT species_id FROM sightings)
+WHERE species_id NOT IN (SELECT species_id FROM sightings);
 
 
 --6
@@ -86,27 +87,25 @@ LIMIT 2
 
 
 --7
--- INSERT INTO species (common_name, scientific_name, discovery_date, conservation_status)
+UPDATE species 
+SET conservation_status = 'Historic'
+WHERE EXTRACT(YEAR FROM discovery_date) < 1800;
 
 SELECT * FROM species
-WHERE 
-
-UPDATE species SET conservation_status = 'Historic' WHERE (SELECT *, EXTRACT(YEAR FROM discovery_date) AS discovery_year FROM species WHERE EXTRACT(YEAR FROM discovery_date) < 1800;)
 
 
 --8
-
-
-
-
+SELECT sighting_time,
+CASE 
+    WHEN sighting_time::time < '12:00:00' THEN 'Morning' 
+    WHEN sighting_time::time >= '12:00:00' AND sighting_time::time <= '17:00:00' THEN 'Afternoon' 
+    ELSE  'Evening'
+END as time_of_day
+FROM sightings
 
 
 --9
+DELETE FROM rangers
+WHERE ranger_id NOT IN (SELECT ranger_id FROM sightings);
 
-
-
-
-
-
-
---10
+SELECT * FROM rangers;
