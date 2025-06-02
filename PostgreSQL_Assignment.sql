@@ -57,8 +57,10 @@ INSERT INTO rangers (name, region)
 SELECT * FROM rangers;
 
 
-
+ 
 --2
+SELECT species_id from sightings
+GROUP BY species_id
 
 
 
